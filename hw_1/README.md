@@ -10,16 +10,30 @@
 - Очки растут со временем и за бонусы; HUD показывает HP, Score и текущий множитель скорости.
 
 ## Управление (клавиатура)
-- `A` / `←` — смещение влево.
-- `D` / `→` — смещение вправо.
+- `A` / `<-` — смещение влево.
+- `D` / `->` — смещение вправо.
 - `Space` — прыжок (до 2 подряд, если настроено `maxJumps`).
 
 ## Требования
 - Unity **6000.3.10f1** (из `ProjectSettings/ProjectVersion.txt`).
 - TextMeshPro установлен по умолчанию в проекте.
 
-## Структура папок
-- `Assets/Scripts/Core` — менеджмент игры, камера, бесконечные плитки, HUD.
-- `Assets/Scripts/Player` — движение и здоровье игрока, конфиг.
-- `Assets/Scripts/Obstacles` — препятствия, бонусы, спавн логика.
-- `Assets/Scenes` — основная сцена `SampleScene`.
+### Структура
+```text
+Assets/
+└─ Scripts
+   ├─ Core
+   │  ├─ GameManager.cs — очки, темп, рестарт сцены 
+   │  ├─ HUD.cs — вывод HP/Score/Speed
+   │  ├─ CameraFollow.cs — плавное слежение за игроком 
+   │  └─ GroundTileManager.cs — перестановка дорожных сегментов для бесконечного бега
+   ├─ Player
+   │  ├─ PlayerController.cs — движение, смена полос, прыжки, HP/смерть
+   │  └─ PlayerConfig.cs — ScriptableObject: баланс игрока (скорость, полосы, прыжки, здоровье)
+   └─ Obstacles
+      ├─ ObstacleSpawner.cs — спавн препятствий/бонусов с динамическим интервалом
+      ├─ Obstacle.cs — урон игроку при столкновении
+      ├─ ObstacleData.cs — ScriptableObject с величиной урона
+      ├─ Pickup.cs — обработка подбора, даёт очки/лечение
+      └─ PickupData.cs — ScriptableObject: тип бонуса и значение
+```
