@@ -1,8 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Runner/Player Config", fileName = "PlayerConfig")]
-public class PlayerConfig : ScriptableObject
-{
+public class PlayerConfig : ScriptableObject{
     [Header("Movement")]
     [Min(0.1f)] public float forwardSpeed = 8f;
     [Min(0.1f)] public float laneChangeSpeed = 12f;

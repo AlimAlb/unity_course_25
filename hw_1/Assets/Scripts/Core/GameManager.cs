@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour{
     public static GameManager I { get; private set; }
 
     [Header("Difficulty")]
@@ -19,23 +18,20 @@ public class GameManager : MonoBehaviour
     public int Score { get; private set; }
     public float SpeedMultiplier { get; private set; } = 1f;
 
-    private void Awake()
-    {
+    private void Awake() {
         if (I != null && I != this) { Destroy(gameObject); return; }
         I = this;
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
+    private void Start() {
         t0 = Time.time;
         SpeedMultiplier = startSpeedMultiplier;
         Score = 0;
         running = true;
     }
 
-    private void Update()
-    {
+    private void Update() {
         if (!running) return;
 
         float elapsed = Time.time - t0;
@@ -45,23 +41,18 @@ public class GameManager : MonoBehaviour
         Score += Mathf.RoundToInt(scorePerSecond * Time.deltaTime);
     }
 
-    public void AddScore(int amount)
-    {
+    public void AddScore(int amount) {
         Score += Mathf.Max(0, amount);
     }
 
-    public void StopAndRestart(float delaySeconds = 0.5f)
-    {
+    public void StopAndRestart(float delaySeconds = 0.5f){
         if (!running) return;
         running = false;
         Invoke(nameof(Reload), delaySeconds);
     }
 
-    private void Reload()
-    {
+    private void Reload() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        // после перезагрузки сцены этот объект останется (DontDestroyOnLoad),
-        // но Start() не вызовется автоматически — поэтому вручную ресетим:
         t0 = Time.time;
         SpeedMultiplier = startSpeedMultiplier;
         Score = 0;

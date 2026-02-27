@@ -1,13 +1,11 @@
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
-{
+public class Obstacle : MonoBehaviour{
     [SerializeField] private ObstacleData data;
 
     private bool didHitPlayer = false;
 
-    private void OnCollisionEnter(Collision collision)
-    {
+    private void OnCollisionEnter(Collision collision){
         if (didHitPlayer) return;
 
         var player = collision.collider.GetComponent<PlayerController>();
